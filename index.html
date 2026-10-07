@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NEON MAZE</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div id="gameContainer">
+        <!-- Main Game Canvas -->
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- Main Menu -->
+        <div id="mainMenu" class="screen active">
+            <h1 class="game-title">NEON MAZE</h1>
+            <div class="game-subtitle">CYBER ARCADE EXPERIENCE</div>
+
+            <div class="menu-buttons">
+                <button class="menu-btn primary" data-action="play">START GAME</button>
+                <button class="menu-btn" data-action="howtoplay">HOW TO PLAY</button>
+                <button class="menu-btn" data-action="highscores">HIGH SCORES</button>
+                <button class="menu-btn" data-action="settings">SETTINGS</button>
+            </div>
+        </div>
+
+        <!-- How To Play Screen -->
+        <div id="howToPlayScreen" class="screen">
+            <h2 class="screen-title">HOW TO PLAY</h2>
+
+            <div class="instructions">
+                <div class="instruction-section">
+                    <h3>OBJECTIVE</h3>
+                    <p>Collect all fragments to open the portal to the next level. Avoid the VOIDERS at all costs.</p>
+                </div>
+
+                <div class="instruction-section">
+                    <h3>CONTROLS</h3>
+                    <ul>
+                        <li><span class="key-hint">W</span><span class="key-hint">A</span><span class="key-hint">S</span><span class="key-hint">D</span> or <span class="key-hint">ARROWS</span> to move.</li>
+                        <li>Mobile: Use the invisible virtual joystick on the screen.</li>
+                        <li><span class="key-hint">ESC</span> to pause or go back.</li>
+                    </ul>
+                </div>
+
+                <div class="instruction-section">
+                    <h3>POWER-UPS</h3>
+                    <ul>
+                        <li>⚡ OVERDRIVE: Doubles speed.</li>
+                        <li>👻 PHASE: Move through walls.</li>
+                        <li>💥 PULSE: Stuns enemies.</li>
+                        <li>🌀 PORTAL KEY: Activates portal early.</li>
+                    </ul>
+                </div>
+
+                <div class="instruction-section">
+                    <h3>ENEMIES</h3>
+                    <ul>
+                        <li><span style="color:#ff3344">CHASER:</span> Hunts you directly.</li>
+                        <li><span style="color:#aa44ff">SHADOW:</span> Ambushes you.</li>
+                        <li><span style="color:#ff8800">RUSHER:</span> Fast and erratic.</li>
+                        <li><span style="color:#44ff44">GUARDIAN:</span> Protects zones.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="menu-btn" data-action="back">BACK</button>
+        </div>
+
+        <!-- High Scores Screen -->
+        <div id="highScoreScreen" class="screen">
+            <h2 class="screen-title gold">HIGH SCORES</h2>
+            <div id="rankingList" class="ranking-list">
+                <!-- Populated via JS -->
+            </div>
+            <button class="menu-btn" data-action="back">BACK</button>
+        </div>
+
+        <!-- Settings Screen -->
+        <div id="settingsScreen" class="screen">
+            <h2 class="screen-title">SETTINGS</h2>
+            <div class="settings-group">
+                <button id="musicToggle" class="setting-btn" data-action="toggleMusic">MUSIC: ON</button>
+                <button id="sfxToggle" class="setting-btn" data-action="toggleSfx">SFX: ON</button>
+            </div>
+            <button class="menu-btn" data-action="back">BACK</button>
+        </div>
+
+        <!-- Pause Screen -->
+        <div id="pauseScreen" class="screen">
+            <h2 class="screen-title">PAUSED</h2>
+            <div class="menu-buttons">
+                <button class="menu-btn primary" data-action="resume">RESUME</button>
+                <button class="menu-btn" data-action="settings">SETTINGS</button>
+                <button class="menu-btn" data-action="mainmenu">QUIT TO MENU</button>
+            </div>
+            <div class="pause-hint">Press ESC to resume</div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="gameOverScreen" class="screen">
+            <h2 class="screen-title red">SYSTEM FAILURE</h2>
+
+            <div class="score-display">
+                <div id="newHighScore" class="new-high-score">NEW HIGH SCORE!</div>
+                <div class="score-label">SCORE</div>
+                <div id="finalScore" class="score-value accent">000000</div>
+            </div>
+
+            <div class="score-display" style="margin-bottom: 40px; transform: scale(0.7);">
+                <div class="score-label">BEST SCORE</div>
+                <div id="bestScore" class="score-value">000000</div>
+            </div>
+
+            <div class="menu-buttons">
+                <button class="menu-btn primary" data-action="retry">TRY AGAIN</button>
+                <button class="menu-btn" data-action="mainmenu">MAIN MENU</button>
+            </div>
+        </div>
+
+        <!-- Level Complete Screen -->
+        <div id="levelCompleteScreen" class="screen">
+            <h2 class="screen-title green">PORTAL ACTIVATED</h2>
+
+            <div class="level-complete-info">
+                <div id="levelCompleteName" class="level-name">LEVEL 1 - NEON CITY</div>
+                <div class="divider"></div>
+                <div class="score-label">CURRENT SCORE</div>
+                <div id="levelScore" class="score-value" style="margin-bottom: 10px;">000000</div>
+                <div class="bonus-label">TIME BONUS</div>
+                <div id="timeBonus" class="bonus-value">+0</div>
+            </div>
+
+            <button class="menu-btn primary" data-action="nextlevel" style="margin-top: 20px;">NEXT LEVEL</button>
+        </div>
+
+        <!-- Victory Screen -->
+        <div id="victoryScreen" class="screen">
+            <h1 class="game-title" style="font-size: 42px; margin-bottom: 20px;">SYSTEM PURGED</h1>
+            <div class="game-subtitle" style="margin-bottom: 30px; color: #ffcc00;">ALL ZONES CLEARED</div>
+
+            <div class="score-display">
+                <div class="score-label">FINAL SCORE</div>
+                <div id="victoryScore" class="score-value accent">000000</div>
+            </div>
+
+            <button class="menu-btn primary" data-action="mainmenu" style="margin-top: 30px;">MAIN MENU</button>
+        </div>
+
+        <!-- Virtual Joystick Area (Mobile) -->
+        <div id="joystickArea"></div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/levels.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/input.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/powerups.js"></script>
+    <script src="js/hud.js"></script>
+    <script src="js/scoring.js"></script>
+    <script src="js/enemy.js"></script>
+    <script src="js/player.js"></script>
+    <script src="js/maze.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
